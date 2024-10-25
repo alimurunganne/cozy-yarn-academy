@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Yarn Academy</title>
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16" alt= "Cozy Yarn Academy"> <!-- Correctly added favicon -->
+</head>
+
+<!-- <style>
+* {
+    box-sizing: border-box;
+    color: #415865;
+    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
+}
+
+body {
+    margin: 0;
+    background-color: #F9F8EB;
+    font-family: 'Outfit', sans-serif; 
+    width: 100vw;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #415865;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    flex-wrap: wrap;
+}
+
+.logo{
+    margin-left: 0 !important;
+    width: 6em;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end; 
+}
+
+.nav-bar ul {
+    display: flex;
+    padding: 0;
+    margin-right: 0;
+    list-style: none;
+}
+
+.nav-bar li {
+        padding-right: 1em;
+        margin-right: 1em;
+        color: #F9F8EB; /* Normal color */
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+.nav-bar li a {
+    color: #F9F8EB; 
+    text-decoration: none; 
+}
+
+.nav-bar li:hover {
+    background-color: #F9F8EB; 
+    padding: 0 1em;
+    color: #415865; 
+    border-radius: 40px;
+    transition: 300ms ease-in-out;
+}
+
+.nav-bar li:hover a {
+    color: #415865; 
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #415865;
+        color: #F9F8EB;
+        padding: 10px 0;
+        display: none;
+        z-index: 1001;
+    }
+
+    nav.active .nav-bar {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+
+    .nav-bar li {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        margin-right: 50px;
+        color: #F9F8EB;
+        font-size: 24px;
+    }
+}
+
+.color-line {
+    background-color: #7A9EB1;
+    padding: 1em 1em;
+    margin: 10em 5em 1em 5em;
+}
+
+.sec-1 header {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+
+.sec-1 p {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.sec-1 {
+    margin: 2em 5em;
+}
+
+.social-media {
+    max-width: 60em;
+    margin-left: 5em;
+    padding: 20px;
+}
+
+.social-media p {
+    font-weight: bold;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.icon {
+    width: 45px; 
+    height: 50px;
+    margin-right: 10px;
+}
+
+.social-item a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.social-item a:hover {
+    color: #007bff; 
+}
+
+.fb-1 {
+    width: 35px;
+    padding-right: 20px;
+}
+
+.tele {
+    width: 55px;
+    height: 55px;
+    margin-right: 0.2em;
+}
+
+.customer {
+    background-color: #7A9EB1;
+    padding-right: 1em;
+    border-radius: 20px;
+}
+
+.customer header {
+    font-size: 1.75em;
+    color: #F9F8EB;
+    margin-left: 1em;
+    padding-top: 0.5em;
+    font-weight: bold;
+}
+
+.customer p {
+    font-size: 1em;
+    color: #F9F8EB;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    margin-left: 2em;
+}
+
+footer {
+    background-color: #7A9EB1;
+    margin-left: 100px;
+    border-radius: 20px;
+    margin: 2em 3em;
+    padding: 1.75em 1.75em;
+    border-radius: 20px;
+}
+
+footer h1{
+    background-color: #7A9EB1;
+    color: #F9F8EB;
+    font-size: 2em;
+    padding-top: 5px;
+    padding-bottom: 0;
+}
+
+footer p{
+    background-color: #7A9EB1;
+    text-align: left;
+    color: #F9F8EB;
+    margin-left: 0;
+    padding-bottom: 2em;
+}
+
+table {
+    margin: 0 auto;
+}
+
+td {
+    text-align: center;
+    color: #F9F8EB;
+    font-weight: bold;
+}
+
+.copyright {
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+}
+
+footer table {
+    size: 0 auto;
+}
+
+</style> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.createElement('div');
+        toggleButton.classList.add('menu-toggle');
+        toggleButton.innerHTML = '&#9776;';
+        document.querySelector('nav').insertBefore(toggleButton, document.querySelector('.nav-bar'));
+    
+        toggleButton.addEventListener('click', () => {
+            document.querySelector('nav').classList.toggle('active');
+        });
+    });
+    </script>
+    
+    
+    <body>
+        <nav>
+            <div>
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Cozy Yarn Academy Logo"  class="logo">
+                </a>
+            </div>
+    
+            <div class="menu-toggle">
+                <span>&#9776;</span> <!-- Hamburger icon -->
+            </div>
+    
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="index.html" alt="Home">Home</a></li>
+                    <li><a href="about.html" alt="About Us">About Us</a></li>
+                    <li><a href="history.html" alt="History">History</a></li>
+                    <li><a href="tutorials.html" alt="Tutorials">Tutorials</a></li>
+                    <li><a href="myproj.html" alt="My Projects">My Projects</a></li>
+                    <li><a href="contact.html" alt="Contact Us">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+    
+        <div class = "color-line"></div>
+
+        <div class="sec-1">
+            <header>Got questions, feedback, or just want to say hi? We're here to help!</header>
+            <p>Email: support@cozyyarnacademy.com <br>
+            Phone: (123) 456-7890</p>
+        </div>
+
+        <div class="social-media">
+            <div class="social-item">
+                <img src="images/fb-1.png" alt="Facebook Icon" class="fb-1">
+                <a href="https://facebook.com/cozyyarnacademy" target="_blank">Facebook: facebook.com/cozyyarnacademy</a>
+            </div>
+            <div class="social-item">
+                <img src="images/insta.png" alt="Instagram Icon" class="icon">
+                <a href="https://instagram.com/cozyyarnacademy" target="_blank">Instagram: instagram.com/cozyyarnacademy</a>
+            </div>
+            <div class="social-item">
+                <img src="images/tele.png" alt="Telegram Icon" class="tele">
+                <a href="https://telegram.com/cozyyarnacademy" target="_blank">Telegram: telegram.com/cozyyarnacademy</a>
+            </div>
+
+            <div class="customer">
+                <header>Customer Support Hours:</header>
+                <p>
+                    Monday - Friday: 9:00 AM - 5:00 PM <br>
+                    Saturday - Sunday: Closed <br>
+                    Fill out our contact form and we'll get back to you as soon as we can!
+                </p>
+            </div>
+    </div>
+    </body>
+</html>

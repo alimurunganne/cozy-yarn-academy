@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Yarn Academy</title>
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16" alt= "Cozy Yarn Academy"> <!-- Correctly added favicon -->
+</head>
+
+<!-- <style>
+* {
+    box-sizing: border-box;
+    color: #415865;
+    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
+}
+
+body {
+    margin: 0;
+    background-color: #F9F8EB;
+    font-family: 'Outfit', sans-serif; 
+    width: 100vw;
+    /* overflow-x: hidden; */
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #415865;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    flex-wrap: wrap;
+}
+
+.logo{
+    margin-left: 0 !important;
+    width: 6em;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end; 
+}
+
+.nav-bar ul {
+    display: flex;
+    padding: 0;
+    margin-right: 0;
+    list-style: none;
+}
+
+.nav-bar li {
+        padding-right: 1em;
+        margin-right: 1em;
+        color: #F9F8EB; /* Normal color */
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+.nav-bar li a {
+    color: #F9F8EB; 
+    text-decoration: none; 
+}
+
+.nav-bar li:hover {
+    background-color: #F9F8EB; 
+    padding: 0 1em;
+    color: #415865; 
+    border-radius: 40px;
+    transition: 300ms ease-in-out;
+}
+
+.nav-bar li:hover a {
+    color: #415865; 
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #415865;
+        color: #F9F8EB;
+        padding: 10px 0;
+        display: none;
+        z-index: 1001;
+    }
+
+    nav.active .nav-bar {
+        display: flex;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+
+    .nav-bar li {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        margin-right: 50px;
+        color: #F9F8EB;
+        font-size: 24px;
+    }
+}
+
+
+
+
+footer {
+    background-color: #7A9EB1;
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-top: 1em;
+    margin: 5em 5em;
+}
+
+footer h1 {
+    font-size: 20px;
+    color: #F9F8EB;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+    text-align: left;
+    width: 500px;
+    border-radius: 20px;
+}
+
+footer th {
+    border: none;
+    background-color: #7A9EB1;
+}
+
+footer td {
+    border: none;
+    color: #F9F8EB;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer p {
+    color: #F9F8EB;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.soc {
+    text-align: center;
+    align-items: center;
+}
+
+.submission-form h1{
+    color: #415865;
+    background-color: #FFE1B6;
+    margin: 10em 10em;
+    border-radius: 20px;
+    width: 50%;
+    text-align: center;
+    margin: 1em auto;
+    font-size: 2em;
+}
+
+form {
+    background-color: #7A9EB1;
+    padding: 1em;
+    margin: 0 auto; 
+    border-radius: 20px 20px 0 0;
+    max-width: 35%; 
+}
+
+.user-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 150px;
+    font-weight: bold;
+}
+
+legend {
+    color: #F9F8EB;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.permission-form h3 {
+    color: #F9F8EB;
+    font-size: 1em;
+}
+
+
+label {
+    color: #F9F8EB;
+    font-weight: bold;
+    padding-left: 40px;
+}
+
+input {
+    color: #415865;
+    font-weight: bold;
+    color: #F9F8EB;
+}
+
+#name {
+    background-color: #F9F8EB;
+    border-radius: 10px;
+    padding: 5px 5px;
+    border: #F9F8EB;
+}
+
+#email {
+    background-color: #F9F8EB;
+    border-radius: 10px;
+    padding: 5px 5px;
+    border: #F9F8EB;
+    margin-top: 10px;
+}
+
+#projectTitle {
+    background-color: #F9F8EB;
+    border-radius: 10px;
+    padding: 5px 5px;
+    border: #F9F8EB;
+    margin-bottom: 15px;
+}
+
+#projectDescription {
+    background-color: #F9F8EB;
+    border-radius: 10px;
+    padding: 1em 1em;
+    border: #F9F8EB;
+}
+
+#projectImage {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 100px; 
+    display: flex;
+}
+
+#projectDescription {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 145px;
+    font-weight: bold;
+    margin-top: -1em;
+    margin-bottom: 15px;
+}
+
+#permission-form{
+    margin-bottom: 10px;
+    margin-left: 100px;
+    color: #F9F8EB;
+}
+
+#permissionRequest {
+    border-radius: 0 0 20px 20px;
+    color: #F9F8EB;
+}
+
+.design-1 {
+    background-color: #415865;
+    padding: 0.75em 0.75em;
+    margin: 10em 5em 2em 5em;
+}
+
+.design-2  {
+    background-color: #415865;
+    padding: 0.75em 0.75em;
+    margin: 2em 5em 1em 5em;
+}
+
+.l1 {
+    height: auto;
+    width: 0.2em;
+}
+
+.left-side {
+    float: left;
+    margin: 0 5em;
+    clear: both;
+}
+
+.user-2 {
+    display: flex;
+    flex-direction: row;
+    padding-left: 5em;
+    padding-bottom: 1em;
+}
+
+.user-2 img {
+    width: 80px;
+}
+
+.user-2 p {
+    font-weight: bold;
+}
+
+.center img{
+    width: 300px;
+    background-color: #7A9EB1;
+    padding: 1em 1em;
+    border-radius: 20px;
+}
+
+.center {
+    width: 80%;
+    margin: 0 auto !important;
+    text-align: center; 
+}
+
+.center p {
+    font-weight: bold;
+}
+
+</style> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.createElement('div');
+        toggleButton.classList.add('menu-toggle');
+        toggleButton.innerHTML = '&#9776;';
+        document.querySelector('nav').insertBefore(toggleButton, document.querySelector('.nav-bar'));
+    
+        toggleButton.addEventListener('click', () => {
+            document.querySelector('nav').classList.toggle('active');
+        });
+    });
+    </script>
+    
+    
+    <body>
+        <nav>
+            <div>
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Cozy Yarn Academy Logo"  class="logo">
+                </a>
+            </div>
+    
+            <div class="menu-toggle">
+                <span>&#9776;</span> <!-- Hamburger icon -->
+            </div>
+    
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="index.html" alt="Home">Home</a></li>
+                    <li><a href="about.html" alt="About Us">About Us</a></li>
+                    <li><a href="history.html" alt="History">History</a></li>
+                    <li><a href="tutorials.html" alt="Tutorials">Tutorials</a></li>
+                    <li><a href="myproj.html" alt="My Projects">My Projects</a></li>
+                    <li><a href="contact.html" alt="Contact Us">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav> 
+
+        <div class = "design-1"></div>
+
+        <!-- user post -->
+        <div class = "user-1">
+            <th><img src="images/user-prof.png" alt="profile" ></th>
+            <th class = "l1"><img src = "images/line.png"></th>
+            <th class = "sign-in">Sign in</th>
+        </div>
+
+        <div class = "design-2"></div>
+
+        <div class = "user-2">
+                <!-- 1 -->
+                <img src="images/user-prof.png" alt="user-1" class = "pic">
+                <p>Anonymous<br>Posted a while a go.</p>
+        </div>
+        
+        <div class = "center">
+            <img src = "images/pic-1.png" alt = "pic-1" width="300" height="300" class = "post">
+            <p class = "user-p">“If I’m sitting, I’m crocheting. If I’m not crocheting, I’m thinking  about crocheting.”</p>
+        </div>
+
+        <div class="submission-form">
+            <h1>Cozy Yarn Academy Submission Form</h1>
+            <form id="projectSubmission" action="/submit" method="POST">
+                <legend>Personal Information:</legend>
+                <label for="name">Name:</label> 
+                <input type="text" id="name" name="name" required> <br>
+        
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <legend>Submission Details:</legend>
+                <label for="projectTitle">Title:</label>
+                <input type="text" id="projectTitle" name="projectTitle" required> <br>
+        
+                <label for="projectDescription">Description:</label>
+                <textarea id="projectDescription" name="projectDescription" rows="4" ></textarea>
+        
+                <label for="projectImage">Attached file here: </label> <br> 
+                <input type="file" id="projectImage" name="projectImage" accept="image/*"> <br>
+            </form>
+        </div>
+
+    <div class="permission-form">
+    <form id="permissionRequest" action="/submit-permission" method="POST">
+        <legend>Permissions:</legend>
+        <h3>&#8226; I agree to allow Cozy Yarn Academy to publish my submission.</h3>
+        
+        <label>
+            <input type="checkbox" name="permissions" value="permission1"> Yes
+        </label><br>
+        
+        <label>
+            <input type="checkbox" name="permissions" value="permission2"> No
+        </label><br>
+        
+        <h3>&#8226; I confirm that my submission is original and does not infringe on any copyrights.</h3>
+
+        <label>
+            <input type="checkbox" name="permissions" value="permission3"> I Agree
+        </label><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+        <footer>
+            <h1>Contact Us</h1>
+            <p>We’re here to help! Whether you have questions, feedback, or just want to chat about your latest project, don’t hesitate to reach out.</p>
+            <div class = "soc">
+                <table>
+                    <tr>
+                        <th><img src="images/fb.png" alt="Facebook"></th>
+                        <th><img src="images/ig.png" alt="Instagram"></th>
+                        <th><img src="images/telegram.png" alt="Telegram"></th>
+                    </tr>
+                    <tr>
+                        <td>Facebook</td>
+                        <td>Instagram</td>
+                        <td>Telegram</td>
+                    </tr>
+                </table>
+            </div>
+            <p class = "copyright">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
