@@ -7,125 +7,182 @@
     <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; }
+        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; --nav-h:68px; }
 
         body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--teal); overflow-x:hidden; }
 
-        /* NAV */
+        /* ── NAV ── */
         nav {
             position:fixed; top:0; left:0; width:100%; z-index:1000;
-            background:var(--teal); padding:12px 32px;
+            background:var(--teal); padding:10px clamp(24px, 4vw, 80px);
             display:flex; align-items:center; justify-content:space-between;
             box-shadow:0 2px 12px rgba(0,0,0,.15);
+            height:var(--nav-h);
         }
-        .logo { width:52px; display:block; }
-        .nav-bar ul { display:flex; list-style:none; gap:4px; }
-        .nav-bar li a {
+        .logo { width:48px; display:block; flex-shrink:0; }
+        .nav-links { display:flex; list-style:none; gap:4px; }
+        .nav-links li a {
             color:var(--cream); text-decoration:none; font-weight:600;
             font-size:.88rem; padding:7px 16px; border-radius:40px;
-            display:block; transition:background .2s,color .2s;
+            display:block; transition:background .2s,color .2s; white-space:nowrap;
         }
-        .nav-bar li a:hover { background:var(--cream); color:var(--teal); }
-        .menu-toggle { display:none; color:var(--cream); font-size:24px; cursor:pointer; background:none; border:none; }
+        .nav-links li a:hover { background:var(--cream); color:var(--teal); }
+        .hamburger {
+            display:none; background:none; border:none; cursor:pointer;
+            padding:6px; color:var(--cream); flex-direction:column; gap:5px;
+        }
+        .hamburger span { display:block; width:24px; height:2px; background:var(--cream); border-radius:2px; }
 
-        /* HERO */
+        /* ── DRAWER ── */
+        .drawer-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1099; opacity:0; transition:opacity .3s; }
+        .drawer-overlay.show { display:block; opacity:1; }
+        .drawer {
+            position:fixed; top:0; right:0; height:100%; width:280px; max-width:85vw;
+            background:var(--teal); z-index:1100; transform:translateX(100%);
+            transition:transform .3s ease; display:flex; flex-direction:column;
+            box-shadow:-4px 0 32px rgba(0,0,0,.25);
+        }
+        .drawer.open { transform:translateX(0); }
+        .drawer-head {
+            display:flex; align-items:center; justify-content:space-between;
+            padding:20px 20px 16px; border-bottom:1px solid rgba(249,248,235,.1);
+        }
+        .drawer-head img { width:44px; }
+        .drawer-close { background:none; border:none; color:var(--cream); font-size:28px; cursor:pointer; line-height:1; padding:4px; }
+        .drawer a {
+            color:var(--cream); text-decoration:none; font-weight:600;
+            font-size:1rem; padding:13px 20px; display:block; transition:background .2s;
+        }
+        .drawer a:hover { background:rgba(249,248,235,.1); }
+
+        /* ── HERO ── */
         .hero-wrap {
-            margin-top:76px;
+            margin-top:var(--nav-h);
             display:grid; grid-template-columns:1fr 1fr;
-            background:var(--teal);
+            background:var(--teal); min-height:420px;
         }
         .hero-text {
-            padding:64px 52px;
-            display:flex; flex-direction:column; justify-content:center;
+            padding:64px 52px; display:flex; flex-direction:column; justify-content:center;
+            max-width:700px;
         }
         .hero-text h1 {
-            font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700;
+            font-size:clamp(1.7rem,2.8vw,2.8rem); font-weight:700;
             color:var(--cream); line-height:1.25; margin-bottom:14px;
         }
         .hero-text h1 span { color:var(--peach); }
-        .hero-text p { color:rgba(249,248,235,.72); font-size:.97rem; line-height:1.85; max-width:400px; }
-        .hero-media { padding:40px 48px 40px 0; display:flex; align-items:center; }
+        .hero-text p { color:rgba(249,248,235,.72); font-size:clamp(.88rem,.95vw,1rem); line-height:1.85; max-width:420px; }
+        .hero-media { padding:32px 48px 32px 0; display:flex; align-items:center; }
         .hero-media video { width:100%; border-radius:16px; display:block; }
 
-        /* EXPLORE CARDS */
-        .explore { max-width:1100px; margin:0 auto; padding:56px 40px 40px; }
-        .explore h2 { font-size:1.25rem; font-weight:700; margin-bottom:24px; color:var(--teal); }
-        .cards-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        /* ── EXPLORE ── */
+        .explore { max-width:1400px; margin:0 auto; padding:56px 48px 68px; }
+        .explore h2 { font-size:1.3rem; font-weight:700; margin-bottom:28px; color:var(--teal); }
+        .cards-row { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
         .card {
-            border-radius:16px; overflow:hidden; display:block;
-            text-decoration:none; background:var(--teal);
-            box-shadow:0 4px 16px rgba(65,88,101,.1);
+            border-radius:16px; overflow:hidden; display:block; text-decoration:none;
+            background:var(--teal); box-shadow:0 4px 16px rgba(65,88,101,.1);
             transition:transform .2s,box-shadow .2s;
         }
         .card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(65,88,101,.18); }
-        .card img { width:100%; height:180px; object-fit:cover; display:block; }
+        .card img { width:100%; height:200px; object-fit:cover; display:block; }
         .card-label {
-            padding:16px 20px;
-            background:var(--peach); color:var(--teal);
+            padding:16px 20px; background:var(--peach); color:var(--teal);
             font-weight:700; font-size:.88rem; letter-spacing:.5px; text-transform:uppercase;
         }
 
-        /* FOOTER */
-        footer {
-            background:var(--sky);
-            border-radius:20px 20px 0 0;
-            padding:48px 0 0;
-        }
+        /* ── FOOTER ── */
+        footer { background:var(--sky); border-radius:20px 20px 0 0; padding:48px 0 0; }
         .footer-inner {
-            max-width:1100px;
-            margin:0 auto;
-            padding:0 48px 40px;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            text-align:center;
-            gap:24px;
+            max-width:1400px; margin:0 auto; padding:0 48px 40px;
+            display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px;
         }
         .footer-left h2 { color:var(--cream); font-size:1.1rem; font-weight:700; margin-bottom:8px; }
         .footer-left p { color:rgba(249,248,235,.75); font-size:.88rem; line-height:1.8; max-width:360px; }
         .footer-socials { display:flex; flex-direction:row; justify-content:center; gap:8px; flex-wrap:wrap; }
-        .social-pill { display:flex; align-items:center; gap:10px; background:rgba(249,248,235,.14); border:1px solid rgba(249,248,235,.2); color:var(--cream); font-weight:600; font-size:.85rem; padding:10px 20px; border-radius:40px; text-decoration:none; transition:background .2s; }
+        .social-pill {
+            display:flex; align-items:center; gap:10px;
+            background:rgba(249,248,235,.14); border:1px solid rgba(249,248,235,.2);
+            color:var(--cream); font-weight:600; font-size:.85rem;
+            padding:10px 20px; border-radius:40px; text-decoration:none; transition:background .2s;
+        }
         .social-pill:hover { background:rgba(249,248,235,.26); }
         .social-pill img { width:20px; height:20px; object-fit:contain; }
-        .footer-copy { text-align:center; color:rgba(249,248,235,.45); font-size:.78rem; padding:20px 48px; border-top:1px solid rgba(249,248,235,.15); }
-
-        @media(max-width:860px){
-            .hero-wrap { grid-template-columns:1fr; }
-            .hero-media { padding:0 32px 40px; }
-            .cards-row { grid-template-columns:1fr 1fr; }
+        .footer-copy {
+            text-align:center; color:rgba(249,248,235,.45); font-size:.78rem;
+            padding:20px 48px; border-top:1px solid rgba(249,248,235,.15);
         }
+
+        /* ── LARGE DESKTOP (≥1440px) ── */
+        @media(min-width:1440px){
+            .hero-wrap { min-height:500px; }
+            .hero-text { padding:80px 64px; }
+            .hero-media { padding:40px 64px 40px 0; }
+            .cards-row { gap:32px; }
+            .card img { height:240px; }
+        }
+
+        /* ── TABLET (≤960px) ── */
+        @media(max-width:1100px){
+            :root { --nav-h:60px; }
+            .nav-links { display:none; }
+            .hamburger { display:flex; }
+            nav { padding:10px 20px; }
+            .hero-wrap { grid-template-columns:1fr; }
+            .hero-text { padding:48px 40px 24px; max-width:100%; }
+            .hero-media { padding:0 40px 40px; }
+            .cards-row { grid-template-columns:1fr 1fr; }
+            .explore { padding:40px 32px 52px; }
+        }
+        /* ── MOBILE (≤600px) ── */
         @media(max-width:600px){
-            .nav-bar { display:none; }
-            nav.open .nav-bar { display:flex; flex-direction:column; position:fixed; top:0; left:0; width:68%; height:100%; background:var(--teal); padding:80px 20px 24px; z-index:1100; }
-            nav.open .nav-bar ul { flex-direction:column; }
-            .menu-toggle { display:block; }
-            .hero-text { padding:40px 24px; }
-            .hero-media { padding:0 24px 40px; }
-            .explore { padding:40px 20px; }
+            :root { --nav-h:56px; }
+            nav { padding:8px 16px; }
+            .logo { width:40px; }
+            .hero-text { padding:32px 20px 20px; }
+            .hero-media { padding:0 20px 32px; }
+            .explore { padding:32px 16px 48px; }
             .cards-row { grid-template-columns:1fr; }
             .footer-inner { padding:0 20px 28px; }
-            .footer-copy { padding:20px; }
+            .footer-copy { padding:16px 20px; }
+            .footer-socials { flex-direction:column; align-items:center; }
+        }
+        @media(max-width:400px){
+            .hero-text h1 { font-size:1.5rem; }
+            .hero-text p { font-size:.9rem; }
+            .card img { height:150px; }
         }
     </style>
 </head>
 <body>
 
-<nav id="mainNav">
+<nav>
     <a href="index.html"><img src="images/logo.png" alt="Cozy Yarn Academy" class="logo"></a>
-    <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">&#9776;</button>
-    <div class="nav-bar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="history.html">History</a></li>
-            <li><a href="tutorials.html">Tutorials</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
 
-<!-- HERO -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Navigation menu">
+    <div class="drawer-head">
+        <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+        <img src="images/logo.png" alt="Cozy Yarn Academy">
+    </div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="history.html">History</a>
+    <a href="tutorials.html">Tutorials</a>
+    <a href="contact.html">Contact Us</a>
+</div>
+
 <div class="hero-wrap">
     <div class="hero-text">
         <h1>Welcome To <span>Cozy Yarn Academy!</span></h1>
@@ -141,26 +198,24 @@
     </div>
 </div>
 
-<!-- CARDS -->
 <div class="explore">
     <h2>Explore</h2>
     <div class="cards-row">
         <a href="history.html" class="card">
-            <img src="images/history-image.png" alt="Photo 1">
+            <img src="images/history-image.png" alt="History">
             <div class="card-label">History</div>
         </a>
         <a href="tutorials.html" class="card">
-            <img src="images/tutorial-image.png" alt="Photo 2">
+            <img src="images/tutorial-image.png" alt="Tutorials">
             <div class="card-label">Tutorials</div>
         </a>
-        <a href="myproj.html" class="card">
-            <img src="images/myproj-image.png" alt="Photo 3">
-            <div class="card-label">My Projects</div>
+        <a href="contact.html" class="card">
+            <img src="images/myproj-image.png" alt="Contact Us">
+            <div class="card-label">Contact Us</div>
         </a>
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
     <div class="footer-inner">
         <div class="footer-left">
@@ -176,5 +231,17 @@
     <p class="footer-copy">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
 </footer>
 
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const closeBtn = document.getElementById('drawerClose');
+    function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow='hidden'; }
+    function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow=''; }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', closeDrawer));
+</script>
 </body>
 </html>

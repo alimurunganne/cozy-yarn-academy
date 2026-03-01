@@ -8,24 +8,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; }
+        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; --nav-h:68px; }
 
         body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--teal); overflow-x:hidden; }
 
-        nav { position:fixed; top:0; left:0; width:100%; z-index:1000; background:var(--teal); padding:12px 32px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 12px rgba(0,0,0,.15); }
-        .logo { width:52px; display:block; }
-        .nav-bar ul { display:flex; list-style:none; gap:4px; }
-        .nav-bar li a { color:var(--cream); text-decoration:none; font-weight:600; font-size:.88rem; padding:7px 16px; border-radius:40px; display:block; transition:background .2s,color .2s; }
-        .nav-bar li a:hover { background:var(--cream); color:var(--teal); }
-        .menu-toggle { display:none; color:var(--cream); font-size:24px; cursor:pointer; background:none; border:none; }
+        /* ── NAV ── */
+        nav {
+            position:fixed; top:0; left:0; width:100%; z-index:1000;
+            background:var(--teal); padding:10px clamp(24px, 4vw, 80px);
+            display:flex; align-items:center; justify-content:space-between;
+            box-shadow:0 2px 12px rgba(0,0,0,.15);
+            height:var(--nav-h);
+        }
+        .logo { width:48px; display:block; flex-shrink:0; }
+        .nav-links { display:flex; list-style:none; gap:4px; }
+        .nav-links li a { color:var(--cream); text-decoration:none; font-weight:600; font-size:.88rem; padding:7px 16px; border-radius:40px; display:block; transition:background .2s,color .2s; white-space:nowrap; }
+        .nav-links li a:hover { background:var(--cream); color:var(--teal); }
+        .hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; flex-direction:column; gap:5px; }
+        .hamburger span { display:block; width:24px; height:2px; background:var(--cream); border-radius:2px; }
 
-        .hero { margin-top:76px; background:var(--sky); padding:64px 80px 52px; }
+        /* ── DRAWER ── */
+        .drawer-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1099; opacity:0; transition:opacity .3s; }
+        .drawer-overlay.show { display:block; opacity:1; }
+        .drawer { position:fixed; top:0; right:0; height:100%; width:280px; max-width:85vw; background:var(--teal); z-index:1100; transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column; box-shadow:-4px 0 32px rgba(0,0,0,.25); }
+        .drawer.open { transform:translateX(0); }
+        .drawer-head { display:flex; align-items:center; justify-content:space-between; padding:20px 20px 16px; border-bottom:1px solid rgba(249,248,235,.1); }
+        .drawer-head img { width:44px; }
+        .drawer-close { background:none; border:none; color:var(--cream); font-size:28px; cursor:pointer; line-height:1; padding:4px; }
+        .drawer a { color:var(--cream); text-decoration:none; font-weight:600; font-size:1rem; padding:13px 20px; display:block; transition:background .2s; }
+        .drawer a:hover { background:rgba(249,248,235,.1); }
+
+        /* ── HERO ── */
+        .hero { margin-top:var(--nav-h); background:var(--sky); padding:64px 80px 52px; }
         .hero-tag { display:inline-block; background:rgba(65,88,101,.2); color:var(--cream); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:40px; margin-bottom:18px; }
-        .hero h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--cream); line-height:1.2; max-width:560px; }
+        .hero h1 { font-size:clamp(1.8rem,3.5vw,3rem); font-weight:700; color:var(--cream); line-height:1.2; max-width:560px; }
         .hero h1 span { color:var(--peach); }
         .hero p { margin-top:14px; color:rgba(249,248,235,.8); font-size:1rem; line-height:1.85; max-width:520px; }
 
-        .content { max-width:1100px; margin:0 auto; padding:52px 48px 72px; display:flex; flex-direction:column; gap:40px; }
+        .content { max-width:1400px; margin:0 auto; padding:52px 80px 72px; display:flex; flex-direction:column; gap:40px; }
 
         .sec-label { display:inline-flex; align-items:center; gap:8px; background:var(--sky); color:var(--cream); font-size:.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:40px; margin-bottom:14px; }
         .sec-label .dot { width:6px; height:6px; background:var(--peach); border-radius:50%; }
@@ -37,8 +57,8 @@
         .timeline::before { content:''; position:absolute; left:28px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--sky),rgba(122,158,177,.15)); }
         .tl-item { display:grid; grid-template-columns:56px 1fr; gap:24px; padding-bottom:24px; }
         .tl-item:last-child { padding-bottom:0; }
-        .tl-dot { display:flex; align-items:flex-start; justify-content:center; padding-top:8px; }
-        .tl-dot span { width:16px; height:16px; background:var(--sky); border:3px solid var(--cream); border-radius:50%; box-shadow:0 0 0 3px var(--sky); display:block; }
+        .tl-dot { display:flex; align-items:flex-start; justify-content:center; padding-top:10px; }
+        .tl-dot span { width:16px; height:16px; background:var(--sky); border:3px solid var(--cream); border-radius:50%; box-shadow:0 0 0 3px var(--sky); display:block; flex-shrink:0; }
         .tl-card { background:var(--teal); border-radius:18px; padding:28px 32px; }
         .tl-era { display:inline-block; background:rgba(122,158,177,.2); color:var(--peach); font-size:.7rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:40px; margin-bottom:10px; }
         .tl-card h2 { color:var(--cream); font-size:1.05rem; font-weight:700; margin-bottom:12px; }
@@ -49,9 +69,9 @@
         .sub-card h3 { color:var(--cream); font-size:.88rem; font-weight:700; margin-bottom:6px; }
         .sub-card p { color:rgba(249,248,235,.68); font-size:.85rem; line-height:1.8; }
 
-        /* FOOTER */
+        /* ── FOOTER ── */
         footer { background:var(--sky); border-radius:20px 20px 0 0; padding:48px 0 0; }
-        .footer-inner { max-width:1100px; margin:0 auto; padding:0 48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
+        .footer-inner { max-width:1400px; margin:0 auto; padding:0 48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
         .footer-left h2 { color:var(--cream); font-size:1.1rem; font-weight:700; margin-bottom:8px; }
         .footer-left p { color:rgba(249,248,235,.75); font-size:.88rem; line-height:1.8; max-width:360px; }
         .footer-socials { display:flex; flex-direction:row; justify-content:center; gap:8px; flex-wrap:wrap; }
@@ -60,39 +80,71 @@
         .social-pill img { width:20px; height:20px; object-fit:contain; }
         .footer-copy { text-align:center; color:rgba(249,248,235,.45); font-size:.78rem; padding:20px 48px; border-top:1px solid rgba(249,248,235,.15); }
 
-        @media(max-width:860px){
+        /* ── LARGE DESKTOP ── */
+        @media(min-width:1440px){
+            .hero { padding:80px 100px 64px; }
+            .content { padding:64px 100px 80px; }
+        }
+
+        /* ── TABLET ── */
+        @media(max-width:1100px){
+            :root { --nav-h:60px; }
+            .nav-links { display:none; }
+            .hamburger { display:flex; }
+            nav { padding:10px 20px; }
             .hero { padding:48px 40px; }
-            .content { padding:40px 32px; }
+            .content { padding:40px 40px; }
             .sub-grid { grid-template-columns:1fr; }
         }
+        /* ── MOBILE ── */
         @media(max-width:600px){
-            .nav-bar { display:none; }
-            nav.open .nav-bar { display:flex; flex-direction:column; position:fixed; top:0; left:0; width:68%; height:100%; background:var(--teal); padding:80px 20px 24px; z-index:1100; }
-            nav.open .nav-bar ul { flex-direction:column; }
-            .menu-toggle { display:block; }
-            .hero { padding:40px 24px; }
-            .content { padding:28px 20px; }
-            .tl-card { padding:20px; }
+            :root { --nav-h:56px; }
+            nav { padding:8px 16px; }
+            .logo { width:40px; }
+            .hero { padding:32px 20px 24px; }
+            .content { padding:24px 16px 48px; gap:28px; }
+            .intro-card { padding:24px 20px; }
+            .tl-item { grid-template-columns:40px 1fr; gap:12px; }
+            .tl-card { padding:20px 18px; }
+            .timeline::before { left:20px; }
             .footer-inner { padding:0 20px 28px; }
-            .footer-copy { padding:20px; }
+            .footer-copy { padding:16px 20px; }
+            .footer-socials { flex-direction:column; align-items:center; }
+        }
+        @media(max-width:400px){
+            .hero h1 { font-size:1.5rem; }
+            .tl-card h2 { font-size:.95rem; }
         }
     </style>
 </head>
 <body>
 
-<nav id="mainNav">
+<nav>
     <a href="index.html"><img src="images/logo.png" alt="Cozy Yarn Academy" class="logo"></a>
-    <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">&#9776;</button>
-    <div class="nav-bar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="history.html">History</a></li>
-            <li><a href="tutorials.html">Tutorials</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+    <div class="drawer-head">
+        <button class="drawer-close" id="drawerClose">&times;</button>
+        <img src="images/logo.png" alt="Cozy Yarn Academy">
+    </div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="history.html">History</a>
+    <a href="tutorials.html">Tutorials</a>
+    <a href="contact.html">Contact Us</a>
+</div>
 
 <section class="hero">
     <div class="hero-tag">Cozy Yarn Academy</div>
@@ -101,7 +153,6 @@
 </section>
 
 <main class="content">
-
     <div>
         <div class="sec-label"><span class="dot"></span> Origins &amp; Early History</div>
         <div class="intro-card">
@@ -112,7 +163,6 @@
     <div>
         <div class="sec-label"><span class="dot"></span> Through the Centuries</div>
         <div class="timeline">
-
             <div class="tl-item">
                 <div class="tl-dot"><span></span></div>
                 <div class="tl-card">
@@ -120,20 +170,11 @@
                     <h2>Ancient Methods &amp; Foundations</h2>
                     <p>Crochet may be derived from early needlework involving shepherd's knitting, linen weaving, lace-making, and embroidery — traditions spanning multiple continents.</p>
                     <div class="sub-grid">
-                        <div class="sub-card">
-                            <span class="sub-label">Ancient</span>
-                            <h3>Ancient Crochet Methods</h3>
-                            <p>Derived from early needlework involving shepherd's knitting, weaving of linen, lace-making, and embroidery.</p>
-                        </div>
-                        <div class="sub-card">
-                            <span class="sub-label">Technique</span>
-                            <h3>Tambour Embroidery</h3>
-                            <p>A small hook forming chain stitches over fabric — spreading from North Africa and Persia into Europe in the 1700s.</p>
-                        </div>
+                        <div class="sub-card"><span class="sub-label">Ancient</span><h3>Ancient Crochet Methods</h3><p>Derived from early needlework involving shepherd's knitting, weaving of linen, lace-making, and embroidery.</p></div>
+                        <div class="sub-card"><span class="sub-label">Technique</span><h3>Tambour Embroidery</h3><p>A small hook forming chain stitches over fabric — spreading from North Africa and Persia into Europe in the 1700s.</p></div>
                     </div>
                 </div>
             </div>
-
             <div class="tl-item">
                 <div class="tl-dot"><span></span></div>
                 <div class="tl-card">
@@ -141,20 +182,11 @@
                     <h2>Shepherd's Knitting &amp; European Spread</h2>
                     <p>In the 19th century, crochet became especially popular in Europe, adopted as a mannerly hobby by higher-class women for lace collars, cuffs, doileys, and bedspreads.</p>
                     <div class="sub-grid">
-                        <div class="sub-card">
-                            <span class="sub-label">Origin</span>
-                            <h3>Shepherd's Knitting</h3>
-                            <p>Coined early in the 19th century — referring to simple, practical items that sheep herders made in their spare time.</p>
-                        </div>
-                        <div class="sub-card">
-                            <span class="sub-label">Spread</span>
-                            <h3>European Influence</h3>
-                            <p>Popularized through emigrants from France, Italy, and Ireland in the early 19th century.</p>
-                        </div>
+                        <div class="sub-card"><span class="sub-label">Origin</span><h3>Shepherd's Knitting</h3><p>Coined early in the 19th century — referring to simple, practical items that sheep herders made in their spare time.</p></div>
+                        <div class="sub-card"><span class="sub-label">Spread</span><h3>European Influence</h3><p>Popularized through emigrants from France, Italy, and Ireland in the early 19th century.</p></div>
                     </div>
                 </div>
             </div>
-
             <div class="tl-item">
                 <div class="tl-dot"><span></span></div>
                 <div class="tl-card">
@@ -162,20 +194,11 @@
                     <h2>Industrialization &amp; Contemporary Trends</h2>
                     <p>Mass publication of crochet patterns made the craft more accessible, while online communities now share techniques and patterns globally.</p>
                     <div class="sub-grid">
-                        <div class="sub-card">
-                            <span class="sub-label">Industry</span>
-                            <h3>Industrialization</h3>
-                            <p>The 19th and 20th centuries promoted crochet as both a practical craft and fashionable pastime through mass-published patterns.</p>
-                        </div>
-                        <div class="sub-card">
-                            <span class="sub-label">Today</span>
-                            <h3>Contemporary Trends</h3>
-                            <p>Modern crochet includes amigurumi — crocheted stuffed creatures — and thriving online communities sharing techniques worldwide.</p>
-                        </div>
+                        <div class="sub-card"><span class="sub-label">Industry</span><h3>Industrialization</h3><p>The 19th and 20th centuries promoted crochet as both a practical craft and fashionable pastime through mass-published patterns.</p></div>
+                        <div class="sub-card"><span class="sub-label">Today</span><h3>Contemporary Trends</h3><p>Modern crochet includes amigurumi — crocheted stuffed creatures — and thriving online communities sharing techniques worldwide.</p></div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -185,7 +208,6 @@
             <p>Crochet is deeply cultural and practiced across the world — passed from generation to generation as a heritage contributor and source of economic support. It creates social connections and community identity through local gatherings and craft circles, and has been used in social movements as a means of activism and artistic expression. In essence, crochet connects cultural heritage, social impact, and innovation in artistic imagination, reflecting the rich diversity of its global practitioners.</p>
         </div>
     </div>
-
 </main>
 
 <footer>
@@ -203,5 +225,17 @@
     <p class="footer-copy">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
 </footer>
 
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const closeBtn = document.getElementById('drawerClose');
+    function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('show'); document.body.style.overflow='hidden'; }
+    function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow=''; }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.querySelectorAll('.drawer a').forEach(a => a.addEventListener('click', closeDrawer));
+</script>
 </body>
 </html>
