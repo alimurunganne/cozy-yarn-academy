@@ -3,330 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Yarn Academy</title>
-    <link rel="stylesheet" href="style.min.css">
-    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16" alt= "Cozy Yarn Academy"> <!-- Correctly added favicon -->
+    <title>Contact Us – Cozy Yarn Academy</title>
+    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; }
+
+        body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--teal); overflow-x:hidden; }
+
+        nav { position:fixed; top:0; left:0; width:100%; z-index:1000; background:var(--teal); padding:12px 32px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 12px rgba(0,0,0,.15); }
+        .logo { width:52px; display:block; }
+        .nav-bar ul { display:flex; list-style:none; gap:4px; }
+        .nav-bar li a { color:var(--cream); text-decoration:none; font-weight:600; font-size:.88rem; padding:7px 16px; border-radius:40px; display:block; transition:background .2s,color .2s; }
+        .nav-bar li a:hover { background:var(--cream); color:var(--teal); }
+        .menu-toggle { display:none; color:var(--cream); font-size:24px; cursor:pointer; background:none; border:none; }
+
+        .hero { margin-top:76px; background:var(--peach); padding:64px 80px 52px; }
+        .hero-tag { display:inline-block; background:rgba(65,88,101,.12); color:var(--teal); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:40px; margin-bottom:18px; }
+        .hero h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--teal); line-height:1.2; max-width:560px; }
+        .hero h1 span { color:var(--sky); }
+        .hero p { margin-top:14px; color:rgba(65,88,101,.72); font-size:1rem; line-height:1.85; max-width:520px; }
+
+        .content { max-width:1100px; margin:0 auto; padding:52px 48px 72px; display:flex; flex-direction:column; gap:40px; }
+
+        .sec-label { display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:var(--cream); font-size:.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:40px; margin-bottom:14px; }
+        .sec-label .dot { width:6px; height:6px; background:var(--peach); border-radius:50%; }
+
+        /* CONTACT CARD */
+        .contact-card { background:var(--teal); border-radius:20px; padding:44px 48px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+        .contact-intro h2 { font-size:1.25rem; font-weight:700; color:var(--cream); margin-bottom:10px; line-height:1.3; }
+        .contact-intro h2 span { color:var(--peach); }
+        .contact-intro > p { color:rgba(249,248,235,.72); font-size:.93rem; line-height:1.85; margin-bottom:28px; }
+        .info-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+        .info-badge { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; background:rgba(249,248,235,.07); border:1px solid rgba(249,248,235,.13); border-radius:10px; font-size:1.1rem; flex-shrink:0; }
+        .info-row strong { color:var(--peach); font-weight:700; font-size:.7rem; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:2px; }
+        .info-row span { color:rgba(249,248,235,.82); font-size:.9rem; }
+        .hours-box { background:rgba(249,248,235,.06); border:1px solid rgba(249,248,235,.1); border-radius:16px; padding:28px; }
+        .hours-box h3 { color:var(--peach); font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:18px; }
+        .hours-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(249,248,235,.07); }
+        .hours-row:last-of-type { border-bottom:none; }
+        .hours-row .day { color:rgba(249,248,235,.6); font-size:.85rem; }
+        .hours-row .time { color:var(--cream); font-size:.85rem; font-weight:600; }
+        .hours-row .time.closed { color:rgba(249,248,235,.28); font-weight:400; }
+        .hours-note { margin-top:18px; background:rgba(255,225,182,.07); border:1px solid rgba(255,225,182,.14); border-radius:10px; padding:12px 14px; color:rgba(249,248,235,.62); font-size:.82rem; line-height:1.65; }
+
+        /* SOCIALS GRID */
+        .socials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .social-card { background:var(--teal); border-radius:18px; padding:28px 24px; text-decoration:none; display:block; transition:transform .2s; }
+        .social-card:hover { transform:translateY(-3px); }
+        .social-card img.brand-img { width:40px; height:40px; object-fit:contain; display:block; margin-bottom:14px; }
+        .social-card h3 { color:var(--peach); font-size:.93rem; font-weight:700; margin-bottom:6px; }
+        .social-card p { color:rgba(249,248,235,.6); font-size:.83rem; line-height:1.65; }
+        .social-link { display:inline-block; margin-top:12px; color:rgba(249,248,235,.45); font-size:.78rem; text-decoration:none; border-bottom:1px solid rgba(249,248,235,.18); padding-bottom:1px; transition:color .2s; }
+        .social-card:hover .social-link { color:var(--peach); }
+
+        /* ENROLLMENT FORM */
+        .form-card { background:var(--teal); border-radius:20px; padding:44px 48px; }
+        .form-card > h2 { color:var(--peach); font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+        .form-card > p { color:rgba(249,248,235,.6); font-size:.88rem; margin-bottom:28px; }
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+
+        legend { color:rgba(249,248,235,.5); font-size:.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:12px; margin-top:20px; }
+        legend:first-of-type { margin-top:0; }
+
+        .form-group { margin-bottom:12px; }
+        .form-group label { display:block; color:rgba(249,248,235,.75); font-size:.82rem; font-weight:600; margin-bottom:5px; }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width:100%; background:rgba(249,248,235,.08); border:1px solid rgba(249,248,235,.14);
+            border-radius:10px; padding:10px 14px;
+            color:var(--cream); font-family:'Outfit',sans-serif; font-size:.88rem;
+            outline:none; transition:border-color .2s;
+        }
+        .form-group select { appearance:none; cursor:pointer; }
+        .form-group select option { background:var(--teal); color:var(--cream); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color:rgba(249,248,235,.3); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:rgba(255,225,182,.4); }
+        .form-group textarea { resize:vertical; min-height:80px; }
+
+        .skill-options { display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+        .skill-options label { display:flex; align-items:center; gap:7px; background:rgba(249,248,235,.07); border:1px solid rgba(249,248,235,.12); color:rgba(249,248,235,.8); font-size:.85rem; font-weight:500; padding:8px 16px; border-radius:40px; cursor:pointer; transition:background .2s; }
+        .skill-options label:hover { background:rgba(249,248,235,.13); }
+        .skill-options input[type="radio"] { accent-color:var(--peach); }
+
+        .btn-submit { width:100%; background:var(--peach); color:var(--teal); font-family:'Outfit',sans-serif; font-size:.92rem; font-weight:700; padding:13px; border-radius:40px; border:none; cursor:pointer; margin-top:18px; transition:opacity .2s; }
+        .btn-submit:hover { opacity:.85; }
+
+        /* FOOTER */
+        footer { background:var(--sky); border-radius:20px 20px 0 0; padding:48px 0 0; }
+        .footer-inner { max-width:1100px; margin:0 auto; padding:0 48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
+        .footer-left h2 { color:var(--cream); font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+        .footer-left p { color:rgba(249,248,235,.75); font-size:.88rem; line-height:1.8; max-width:360px; }
+        .footer-socials { display:flex; flex-direction:row; justify-content:center; gap:8px; flex-wrap:wrap; }
+        .social-pill { display:flex; align-items:center; gap:10px; background:rgba(249,248,235,.14); border:1px solid rgba(249,248,235,.2); color:var(--cream); font-weight:600; font-size:.85rem; padding:10px 20px; border-radius:40px; text-decoration:none; transition:background .2s; }
+        .social-pill:hover { background:rgba(249,248,235,.26); }
+        .social-pill img { width:20px; height:20px; object-fit:contain; }
+        .footer-copy { text-align:center; color:rgba(249,248,235,.45); font-size:.78rem; padding:20px 48px; border-top:1px solid rgba(249,248,235,.15); }
+
+        @media(max-width:860px){
+            .hero { padding:48px 40px; }
+            .content { padding:40px 32px; }
+            .contact-card { grid-template-columns:1fr; }
+            .socials-grid { grid-template-columns:1fr 1fr; }
+            .form-grid { grid-template-columns:1fr; }
+            .form-card { padding:32px 28px; }
+        }
+        @media(max-width:600px){
+            .nav-bar { display:none; }
+            nav.open .nav-bar { display:flex; flex-direction:column; position:fixed; top:0; left:0; width:68%; height:100%; background:var(--teal); padding:80px 20px 24px; z-index:1100; }
+            nav.open .nav-bar ul { flex-direction:column; }
+            .menu-toggle { display:block; }
+            .hero { padding:40px 24px; }
+            .content { padding:28px 20px; }
+            .contact-card { padding:28px 20px; }
+            .socials-grid { grid-template-columns:1fr; }
+            .footer-inner { padding:0 20px 28px; }
+            .footer-copy { padding:20px; }
+        }
+    </style>
 </head>
+<body>
 
-<!-- <style>
-* {
-    box-sizing: border-box;
-    color: #415865;
-    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
-}
-
-body {
-    margin: 0;
-    background-color: #F9F8EB;
-    font-family: 'Outfit', sans-serif; 
-    width: 100vw;
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #415865;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    flex-wrap: wrap;
-}
-
-.logo{
-    margin-left: 0 !important;
-    width: 6em;
-}
-
-.nav-bar {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: flex-end; 
-}
-
-.nav-bar ul {
-    display: flex;
-    padding: 0;
-    margin-right: 0;
-    list-style: none;
-}
-
-.nav-bar li {
-        padding-right: 1em;
-        margin-right: 1em;
-        color: #F9F8EB; /* Normal color */
-        font-weight: bold;
-        font-size: 1em;
-    }
-
-.nav-bar li a {
-    color: #F9F8EB; 
-    text-decoration: none; 
-}
-
-.nav-bar li:hover {
-    background-color: #F9F8EB; 
-    padding: 0 1em;
-    color: #415865; 
-    border-radius: 40px;
-    transition: 300ms ease-in-out;
-}
-
-.nav-bar li:hover a {
-    color: #415865; 
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100%;
-        background-color: #415865;
-        color: #F9F8EB;
-        padding: 10px 0;
-        display: none;
-        z-index: 1001;
-    }
-
-    nav.active .nav-bar {
-        display: flex;
-    }
-
-    .nav-bar ul {
-        flex-direction: column;
-        width: 100%;
-        margin: 0;
-    }
-
-    .nav-bar li {
-        padding: 10px 20px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        margin-right: 50px;
-        color: #F9F8EB;
-        font-size: 24px;
-    }
-}
-
-.color-line {
-    background-color: #7A9EB1;
-    padding: 1em 1em;
-    margin: 10em 5em 1em 5em;
-}
-
-.sec-1 header {
-    font-weight: bold;
-    font-size: 2em;
-}
-
-
-.sec-1 p {
-    font-size: 1.25em;
-    font-weight: bold;
-}
-
-.sec-1 {
-    margin: 2em 5em;
-}
-
-.social-media {
-    max-width: 60em;
-    margin-left: 5em;
-    padding: 20px;
-}
-
-.social-media p {
-    font-weight: bold;
-}
-
-.social-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-}
-
-.icon {
-    width: 45px; 
-    height: 50px;
-    margin-right: 10px;
-}
-
-.social-item a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-.social-item a:hover {
-    color: #007bff; 
-}
-
-.fb-1 {
-    width: 35px;
-    padding-right: 20px;
-}
-
-.tele {
-    width: 55px;
-    height: 55px;
-    margin-right: 0.2em;
-}
-
-.customer {
-    background-color: #7A9EB1;
-    padding-right: 1em;
-    border-radius: 20px;
-}
-
-.customer header {
-    font-size: 1.75em;
-    color: #F9F8EB;
-    margin-left: 1em;
-    padding-top: 0.5em;
-    font-weight: bold;
-}
-
-.customer p {
-    font-size: 1em;
-    color: #F9F8EB;
-    margin: 0;
-    padding-top: 20px;
-    padding-bottom: 15px;
-    margin-bottom: 10px;
-    line-height: 1.5;
-    margin-left: 2em;
-}
-
-footer {
-    background-color: #7A9EB1;
-    margin-left: 100px;
-    border-radius: 20px;
-    margin: 2em 3em;
-    padding: 1.75em 1.75em;
-    border-radius: 20px;
-}
-
-footer h1{
-    background-color: #7A9EB1;
-    color: #F9F8EB;
-    font-size: 2em;
-    padding-top: 5px;
-    padding-bottom: 0;
-}
-
-footer p{
-    background-color: #7A9EB1;
-    text-align: left;
-    color: #F9F8EB;
-    margin-left: 0;
-    padding-bottom: 2em;
-}
-
-table {
-    margin: 0 auto;
-}
-
-td {
-    text-align: center;
-    color: #F9F8EB;
-    font-weight: bold;
-}
-
-.copyright {
-    font-weight: bold;
-    font-size: 1em;
-    text-align: center;
-}
-
-footer table {
-    size: 0 auto;
-}
-
-</style> -->
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const toggleButton = document.createElement('div');
-        toggleButton.classList.add('menu-toggle');
-        toggleButton.innerHTML = '&#9776;';
-        document.querySelector('nav').insertBefore(toggleButton, document.querySelector('.nav-bar'));
-    
-        toggleButton.addEventListener('click', () => {
-            document.querySelector('nav').classList.toggle('active');
-        });
-    });
-    </script>
-    
-    
-    <body>
-        <nav>
-            <div>
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Cozy Yarn Academy Logo"  class="logo">
-                </a>
-            </div>
-    
-            <div class="menu-toggle">
-                <span>&#9776;</span> <!-- Hamburger icon -->
-            </div>
-    
-            <div class="nav-bar">
-                <ul>
-                    <li><a href="index.html" alt="Home">Home</a></li>
-                    <li><a href="about.html" alt="About Us">About Us</a></li>
-                    <li><a href="history.html" alt="History">History</a></li>
-                    <li><a href="tutorials.html" alt="Tutorials">Tutorials</a></li>
-                    <li><a href="myproj.html" alt="My Projects">My Projects</a></li>
-                    <li><a href="contact.html" alt="Contact Us">Contact Us</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-    
-        <div class = "color-line"></div>
-
-        <div class="sec-1">
-            <header>Got questions, feedback, or just want to say hi? We're here to help!</header>
-            <p>Email: support@cozyyarnacademy.com <br>
-            Phone: (123) 456-7890</p>
-        </div>
-
-        <div class="social-media">
-            <div class="social-item">
-                <img src="images/fb-1.png" alt="Facebook Icon" class="fb-1">
-                <a href="https://facebook.com/cozyyarnacademy" target="_blank">Facebook: facebook.com/cozyyarnacademy</a>
-            </div>
-            <div class="social-item">
-                <img src="images/insta.png" alt="Instagram Icon" class="icon">
-                <a href="https://instagram.com/cozyyarnacademy" target="_blank">Instagram: instagram.com/cozyyarnacademy</a>
-            </div>
-            <div class="social-item">
-                <img src="images/tele.png" alt="Telegram Icon" class="tele">
-                <a href="https://telegram.com/cozyyarnacademy" target="_blank">Telegram: telegram.com/cozyyarnacademy</a>
-            </div>
-
-            <div class="customer">
-                <header>Customer Support Hours:</header>
-                <p>
-                    Monday - Friday: 9:00 AM - 5:00 PM <br>
-                    Saturday - Sunday: Closed <br>
-                    Fill out our contact form and we'll get back to you as soon as we can!
-                </p>
-            </div>
+<nav id="mainNav">
+    <a href="index.html"><img src="images/logo.png" alt="Cozy Yarn Academy" class="logo"></a>
+    <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="myproj.html">My Projects</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
     </div>
-    </body>
+</nav>
+
+<section class="hero">
+    <div class="hero-tag">Cozy Yarn Academy</div>
+    <h1>We'd love to <span>hear from you.</span></h1>
+    <p>Got questions, feedback, or just want to say hi? We're always here to help.</p>
+</section>
+
+<main class="content">
+
+    <!-- GET IN TOUCH -->
+    <div>
+        <div class="sec-label"><span class="dot"></span> Get In Touch</div>
+        <div class="contact-card">
+            <div class="contact-intro">
+                <h2>Questions? We've got <span>answers.</span></h2>
+                <p>Reach out anytime — whether it's about a course, your account, or just a crafting question. We're happy to help.</p>
+                <div class="info-row">
+                    <span class="info-badge">&#9993;</span>
+                    <div>
+                        <strong>Email</strong>
+                        <span>support@cozyyarnacademy.com</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-badge">&#9990;</span>
+                    <div>
+                        <strong>Phone</strong>
+                        <span>(123) 456-7890</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hours-box">
+                <h3>&#9716; Support Hours</h3>
+                <div class="hours-row">
+                    <span class="day">Monday – Friday</span>
+                    <span class="time">9:00 AM – 5:00 PM</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">Saturday</span>
+                    <span class="time closed">Closed</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">Sunday</span>
+                    <span class="time closed">Closed</span>
+                </div>
+                <div class="hours-note">&#9998; Fill out our enrollment form below and we'll get back to you as soon as we can!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIND US ONLINE -->
+    <div>
+        <div class="sec-label"><span class="dot"></span> Find Us Online</div>
+        <div class="socials-grid">
+            <div class="social-card">
+                <img class="brand-img" src="images/Facebook.svg" alt="Facebook">
+                <h3>Facebook</h3>
+                <p>Follow us for updates, crafting tips, and community highlights.</p>
+                <a href="https://facebook.com/cozyyarnacademy" target="_blank" class="social-link">facebook.com/cozyyarnacademy</a>
+            </div>
+            <div class="social-card">
+                <img class="brand-img" src="images/Instagram.svg" alt="Instagram">
+                <h3>Instagram</h3>
+                <p>See what our crafters are making and share your own creations with us.</p>
+                <a href="https://instagram.com/cozyyarnacademy" target="_blank" class="social-link">instagram.com/cozyyarnacademy</a>
+            </div>
+            <div class="social-card">
+                <img class="brand-img" src="images/Telegram.svg" alt="Telegram">
+                <h3>Telegram</h3>
+                <p>Join our Telegram community for quick updates and live conversations.</p>
+                <a href="https://telegram.com/cozyyarnacademy" target="_blank" class="social-link">telegram.com/cozyyarnacademy</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENROLLMENT FORM -->
+    <div>
+        <div class="sec-label"><span class="dot"></span> Enroll Now</div>
+        <div class="form-card">
+            <h2>Course Enrollment Form</h2>
+            <p>Ready to start your crafting journey? Fill in your details below and we'll get you set up.</p>
+            <form id="enrollmentForm" action="/enroll" method="POST">
+                <div class="form-grid">
+                    <!-- LEFT: Personal Info + Course -->
+                    <div>
+                        <legend>Personal Information</legend>
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="enrollEmail">Email Address</label>
+                            <input type="email" id="enrollEmail" name="email" placeholder="Your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="e.g. (123) 456-7890">
+                        </div>
+                        <legend>Course Selection</legend>
+                        <div class="form-group">
+                            <label for="course">Choose a Course</label>
+                            <select id="course" name="course" required>
+                                <option value="" disabled selected>Select a course...</option>
+                                <option value="knitting">Knitting – Beginner</option>
+                                <option value="advanced-crochet">Advanced Crochet</option>
+                                <option value="yarn-dyeing">Yarn Dyeing Techniques</option>
+                                <option value="amigurumi">Amigurumi Workshop</option>
+                                <option value="summer-shawl">Summer Shawl Design</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- RIGHT: Skill Level + Notes + Submit -->
+                    <div>
+                        <legend>Your Skill Level</legend>
+                        <div class="form-group">
+                            <div class="skill-options">
+                                <label><input type="radio" name="skillLevel" value="beginner" required> Beginner</label>
+                                <label><input type="radio" name="skillLevel" value="intermediate"> Intermediate</label>
+                                <label><input type="radio" name="skillLevel" value="advanced"> Advanced</label>
+                            </div>
+                        </div>
+                        <legend>Additional Notes</legend>
+                        <div class="form-group">
+                            <label for="notes">Anything you'd like us to know?</label>
+                            <textarea id="notes" name="notes" rows="5" placeholder="Special requirements, questions, goals..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Enrollment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            <h2>Contact Us</h2>
+            <p>We're here to help! Whether you have questions, feedback, or just want to chat about your latest project, don't hesitate to reach out.</p>
+        </div>
+        <div class="footer-socials">
+            <a class="social-pill" href="#"><img src="images/Facebook.svg" alt="Facebook"> Facebook</a>
+            <a class="social-pill" href="#"><img src="images/Instagram.svg" alt="Instagram"> Instagram</a>
+            <a class="social-pill" href="#"><img src="images/Telegram.svg" alt="Telegram"> Telegram</a>
+        </div>
+    </div>
+    <p class="footer-copy">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
+</footer>
+
+</body>
 </html>

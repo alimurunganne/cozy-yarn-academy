@@ -3,472 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Yarn Academy</title>
-    <link rel="stylesheet" href="style.min.css">
-    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16" alt= "Cozy Yarn Academy"> <!-- Correctly added favicon -->
+    <title>History – Cozy Yarn Academy</title>
+    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; }
+
+        body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--teal); overflow-x:hidden; }
+
+        nav { position:fixed; top:0; left:0; width:100%; z-index:1000; background:var(--teal); padding:12px 32px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 12px rgba(0,0,0,.15); }
+        .logo { width:52px; display:block; }
+        .nav-bar ul { display:flex; list-style:none; gap:4px; }
+        .nav-bar li a { color:var(--cream); text-decoration:none; font-weight:600; font-size:.88rem; padding:7px 16px; border-radius:40px; display:block; transition:background .2s,color .2s; }
+        .nav-bar li a:hover { background:var(--cream); color:var(--teal); }
+        .menu-toggle { display:none; color:var(--cream); font-size:24px; cursor:pointer; background:none; border:none; }
+
+        .hero { margin-top:76px; background:var(--sky); padding:64px 80px 52px; }
+        .hero-tag { display:inline-block; background:rgba(65,88,101,.2); color:var(--cream); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:40px; margin-bottom:18px; }
+        .hero h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; color:var(--cream); line-height:1.2; max-width:560px; }
+        .hero h1 span { color:var(--peach); }
+        .hero p { margin-top:14px; color:rgba(249,248,235,.8); font-size:1rem; line-height:1.85; max-width:520px; }
+
+        .content { max-width:1100px; margin:0 auto; padding:52px 48px 72px; display:flex; flex-direction:column; gap:40px; }
+
+        .sec-label { display:inline-flex; align-items:center; gap:8px; background:var(--sky); color:var(--cream); font-size:.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:40px; margin-bottom:14px; }
+        .sec-label .dot { width:6px; height:6px; background:var(--peach); border-radius:50%; }
+
+        .intro-card { background:var(--teal); border-radius:20px; padding:40px 44px; }
+        .intro-card p { color:rgba(249,248,235,.82); font-size:.95rem; line-height:1.9; }
+
+        .timeline { display:flex; flex-direction:column; gap:2px; position:relative; }
+        .timeline::before { content:''; position:absolute; left:28px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--sky),rgba(122,158,177,.15)); }
+        .tl-item { display:grid; grid-template-columns:56px 1fr; gap:24px; padding-bottom:24px; }
+        .tl-item:last-child { padding-bottom:0; }
+        .tl-dot { display:flex; align-items:flex-start; justify-content:center; padding-top:8px; }
+        .tl-dot span { width:16px; height:16px; background:var(--sky); border:3px solid var(--cream); border-radius:50%; box-shadow:0 0 0 3px var(--sky); display:block; }
+        .tl-card { background:var(--teal); border-radius:18px; padding:28px 32px; }
+        .tl-era { display:inline-block; background:rgba(122,158,177,.2); color:var(--peach); font-size:.7rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:40px; margin-bottom:10px; }
+        .tl-card h2 { color:var(--cream); font-size:1.05rem; font-weight:700; margin-bottom:12px; }
+        .tl-card > p { color:rgba(249,248,235,.72); font-size:.88rem; line-height:1.85; }
+        .sub-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+        .sub-card { background:rgba(249,248,235,.06); border:1px solid rgba(249,248,235,.1); border-radius:12px; padding:18px; }
+        .sub-label { display:inline-block; background:rgba(255,225,182,.1); border:1px solid rgba(255,225,182,.18); color:var(--peach); font-size:.68rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:3px 10px; border-radius:40px; margin-bottom:8px; }
+        .sub-card h3 { color:var(--cream); font-size:.88rem; font-weight:700; margin-bottom:6px; }
+        .sub-card p { color:rgba(249,248,235,.68); font-size:.85rem; line-height:1.8; }
+
+        /* FOOTER */
+        footer { background:var(--sky); border-radius:20px 20px 0 0; padding:48px 0 0; }
+        .footer-inner { max-width:1100px; margin:0 auto; padding:0 48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
+        .footer-left h2 { color:var(--cream); font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+        .footer-left p { color:rgba(249,248,235,.75); font-size:.88rem; line-height:1.8; max-width:360px; }
+        .footer-socials { display:flex; flex-direction:row; justify-content:center; gap:8px; flex-wrap:wrap; }
+        .social-pill { display:flex; align-items:center; gap:10px; background:rgba(249,248,235,.14); border:1px solid rgba(249,248,235,.2); color:var(--cream); font-weight:600; font-size:.85rem; padding:10px 20px; border-radius:40px; text-decoration:none; transition:background .2s; }
+        .social-pill:hover { background:rgba(249,248,235,.26); }
+        .social-pill img { width:20px; height:20px; object-fit:contain; }
+        .footer-copy { text-align:center; color:rgba(249,248,235,.45); font-size:.78rem; padding:20px 48px; border-top:1px solid rgba(249,248,235,.15); }
+
+        @media(max-width:860px){
+            .hero { padding:48px 40px; }
+            .content { padding:40px 32px; }
+            .sub-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px){
+            .nav-bar { display:none; }
+            nav.open .nav-bar { display:flex; flex-direction:column; position:fixed; top:0; left:0; width:68%; height:100%; background:var(--teal); padding:80px 20px 24px; z-index:1100; }
+            nav.open .nav-bar ul { flex-direction:column; }
+            .menu-toggle { display:block; }
+            .hero { padding:40px 24px; }
+            .content { padding:28px 20px; }
+            .tl-card { padding:20px; }
+            .footer-inner { padding:0 20px 28px; }
+            .footer-copy { padding:20px; }
+        }
+    </style>
 </head>
+<body>
 
+<nav id="mainNav">
+    <a href="index.html"><img src="images/logo.png" alt="Cozy Yarn Academy" class="logo"></a>
+    <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="myproj.html">My Projects</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
 
-<!-- <style>
-* {
-    box-sizing: border-box;
-    color: #415865;
-    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
-}
+<section class="hero">
+    <div class="hero-tag">Cozy Yarn Academy</div>
+    <h1>The history of <span>crochet.</span></h1>
+    <p>From humble origins to a global craft — explore how crochet evolved through centuries of creativity and culture.</p>
+</section>
 
-body {
-    margin: 0;
-    background-color: #F9F8EB;
-    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
-}
+<main class="content">
 
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #415865;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    flex-wrap: wrap;
-}
-
-.logo{
-    margin-left: 0 !important;
-    width: 6em;
-}
-
-.nav-bar {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: flex-end; 
-}
-
-.nav-bar ul {
-    display: flex;
-    padding: 0;
-    margin-right: 0;
-    list-style: none;
-}
-
-.nav-bar li {
-        padding-right: 1em;
-        margin-right: 1em;
-        color: #F9F8EB; /* Normal color */
-        font-weight: bold;
-        font-size: 1em;
-    }
-
-.nav-bar li a {
-    color: #F9F8EB; 
-    text-decoration: none; 
-}
-
-.nav-bar li:hover {
-    background-color: #F9F8EB; 
-    padding: 0 1em;
-    color: #415865; 
-    border-radius: 40px;
-    transition: 300ms ease-in-out;
-}
-
-.nav-bar li:hover a {
-    color: #415865; 
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100%;
-        background-color: #415865;
-        color: #F9F8EB;
-        padding: 10px 0;
-        display: none;
-        z-index: 1001;
-    }
-
-    nav.active .nav-bar {
-        display: flex;
-    }
-
-    .nav-bar ul {
-        flex-direction: column;
-        width: 100%;
-        margin: 0;
-    }
-
-    .nav-bar li {
-        padding: 10px 20px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        margin-right: 50px;
-        color: #F9F8EB;
-        font-size: 24px;
-    }
-}
-
-
-
-.orig, header {
-    margin-top: 200px;
-    color: #F9F8EB;
-    background-color: #415865;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-weight: bold;
-    padding-left: 10px;
-    text-align: center;
-    width: 20em;
-    border-radius: 20px;
-    font-size: 1.5em;
-}
-
-.orig h6,p {
-    color: #415865;
-    background-color: #FFE1B6;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 100px;
-    margin-right: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-}
-
-.orig h1 {
-    font-size: 20px;
-    color: #F9F8EB;
-    background-color: #415865;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    padding-left: 10px;
-    text-align: left;
-    width: 500px;
-    border-radius: 20px;
-}
-
-.early-orig h2 {
-    color: #F9F8EB;
-    background-color: #415865;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 15px;
-    width: 180px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-}
-
-.early-orig h3 {
-    font-size: 15px;
-    padding-left: 20px;
-}
-
-.orig h4 {
-    font-size: bold;
-    font-size: 20px;
-    color: #F9F8EB;
-    background-color: #415865;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 20px;
-    width: 400px;
-    text-align: center;
-}
-
-.early-orig {
-    background-color: #FFE1B6;
-    padding-top: 10px;
-    padding-left: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-    padding-bottom: 10px;
-    border-radius: 20px;
-}
-
-.early-orig p {
-        list-style-type: circle; 
-        margin-left: 20px; 
-        padding-left: 10px;
-}
-
-.orig h6 {
-    font-size: 20px;
-    color: #F9F8EB;
-    background-color: #415865;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 350px;
-    border-radius: 20px;
-    text-align: center;
-}
-
-.orig {
-    margin: 20px auto;
-    text-align: center !important;
-}
-
-.hist {
-    margin-top: 10em;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px; /* Adjust base font size for mobile */
-    }
-
-    nav {
-        padding: 10px; /* Reduce padding for nav on mobile */
-    }
-
-    .menu-toggle {
-        margin-right: 20px; /* Adjust margin for menu toggle */
-    }
-
-    .nav-bar {
-        width: 100%; /* Make nav bar full width */
-    }
-
-    .nav-bar li {
-        padding: 15px; /* Increase padding for better tap targets */
-        font-size: 1.2em; /* Increase font size for easier reading */
-    }
-
-    header {
-        font-size: 2em; /* Adjust header size for mobile */
-        margin-top: 20px; /* Reduce margin for header */
-    }
-
-    .container {
-        flex-direction: column; /* Stack images vertically */
-        align-items: center; /* Center align images */
-    }
-
-    .image-container {
-        width: 90%; /* Full width for image containers */
-        margin-bottom: 20px; /* Space between images */
-    }
-
-    #images img {
-        max-width: 90%; /* Adjust image size for mobile */
-    }
-
-    footer {
-        padding: 20px; /* Adjust padding for footer */
-        margin: 0 10px; /* Reduce margin for footer */
-    }
-
-    footer h1 {
-        font-size: 1.5em; /* Adjust footer heading size */
-    }
-
-    footer p {
-        font-size: 0.9em; /* Adjust footer paragraph size */
-    }
-
-    .copyright {
-        font-size: 1em; /* Adjust copyright size */
-    }
-
-    .histo img {
-        width: 30%; /* Resize social icons */
-    }
-}
-
-
-/* Tablet Styles */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .section {
-        padding: 40px; /* More padding for tablet */
-        text-align: left; /* Left align for tablets */
-    }
-
-    .orig header {
-        font-size: 3em; /* Larger size for tablets */
-    }
-
-    #images img {
-        max-width: 150px; /* Smaller max width for images */
-    }
-}
-
-/* Desktop Styles */
-@media (min-width: 1025px) {
-    .section {
-        padding: 60px; /* More padding for desktop */
-        text-align: left; /* Left align for desktops */
-    }
-
-    .orig header {
-        font-size: 4em; /* Even larger size for desktops */
-    }
-
-    #images img {
-        max-width: 200px; /* Larger max width for images */
-    }
-}
-
-
-
-footer {
-    background-color: #7A9EB1;
-    margin-left: 100px;
-    border-radius: 20px;
-    margin-right: 100px;
-}
-
-footer h1{
-    background-color: #7A9EB1;
-    font-size: 40px;
-    padding-left: 30px;
-    padding-top: 30px;
-    padding-bottom: 0;
-}
-
-footer p{
-    background-color: #7A9EB1;
-    text-align: left;
-    padding-left: 0px;
-}
-
-table {
-    margin: 0 auto;
-}
-
-td {
-    text-align: center;
-    color: #F9F8EB;
-    font-weight: bold;
-}
-
-.copyright {
-    font-weight: bold;
-    font-size: 30px;
-    text-align: center;
-}
-
-</style> -->
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const toggleButton = document.createElement('div');
-        toggleButton.classList.add('menu-toggle');
-        toggleButton.innerHTML = '&#9776;';
-        document.querySelector('nav').insertBefore(toggleButton, document.querySelector('.nav-bar'));
-    
-        toggleButton.addEventListener('click', () => {
-            document.querySelector('nav').classList.toggle('active');
-        });
-    });
-</script>
-    
-    
-    <body>
-        <nav>
-            <div>
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Cozy Yarn Academy Logo"  class="logo">
-                </a>
-            </div>
-    
-            <div class="menu-toggle">
-                <span>&#9776;</span> <!-- Hamburger icon -->
-            </div>
-    
-            <div class="nav-bar">
-                <ul>
-                    <li><a href="index.html" alt="Home">Home</a></li>
-                    <li><a href="about.html" alt="About Us">About Us</a></li>
-                    <li><a href="history.html" alt="History">History</a></li>
-                    <li><a href="tutorials.html" alt="Tutorials">Tutorials</a></li>
-                    <li><a href="myproj.html" alt="My Projects">My Projects</a></li>
-                    <li><a href="contact.html" alt="Contact Us">Contact Us</a></li>
-                </ul>
-            </div>
-        </nav>
-
-    <div class = "hist">
-    
-        <div class = "head">
-            <header class = "orig">Origins and Early History of Crochet</header>
+    <div>
+        <div class="sec-label"><span class="dot"></span> Origins &amp; Early History</div>
+        <div class="intro-card">
+            <p>Crochet originated in the 19th century from chain-stitch embroidery worked with a hook instead of a needle. In the late 1840s it was introduced into Ireland as a famine relief measure — centred in Cork in the south and at Clones in County Monaghan in the north. As the craft developed it began to approximate lace, with antique styles such as gros point de Venise being successfully imitated.</p>
         </div>
-
-        <p class = "or-1">Crochet, craft that originated in the 19th century from a type of chain-stitch embroidery worked with a hook instead of a needle. In crochet work the hook is used, without a foundation material, to produce a texture of looped and interlinked chains of thread. In the late 1840s crochet was introduced into Ireland as a famine relief measure. In southern Ireland the industry centred in Cork, in northern Ireland at Clones in County Monaghan. As the craft developed into a more sophisticated art form it approximated lace, antique laces, such as gros point de Venise- or Venetian raised lace-being successfully imitated.
-        </p>
-
-        <h1 class = "orig" >19th Century Popularization of Crochet</h1>
-
-        <p class = "or-1">In the 19th century, crochet became especially popular in Europe, where it was adopted as a mannerly hobby by the higher classes of women. It was used for making very tenuous lace collars, cuffs, and trim for clothes, decorative doileys, table-runners, and bedspreads.</p>
-
-        <h4 class = "orig">Evolution of Techniques in Crochet</h4>
-        <div class = "early-orig">
-            <h2>Early Origins</h2>
-            <h3>Ancient Crochet Methods</h3>
-            <p>Crochet may be derived from early needlework methods involving shepherd's knitting, weaving of linen, lace-making, and embroidery.
-            </p>
-
-            <h3>Tambour Embroidery </h3>
-            <p>This ancient method of crochet is said to be a method where, with a small hook, chain stitches were formed over fabric. It spread from North Africa and Persia into Europe in the 1700s.
-            </p>
-
-            <h2>19th Century
-            </h2>
-
-            <h3>Shepherd's Knitting</h3>
-
-            <p>The word for crochet was often coined early in the 19th century as shepherd's knitting. This referred to simple, practical items that sheep herders made up at their spare time.
-            </p>
-
-            <h3>European Influence</h3>
-            <p>The establishment and general popularity of crochet as we know it today came through European emigrants in the early 19th century. This applied more specifically to France, Italy, and Ireland, which largely popularized its use.
-            </p>
-
-            <h2>Modern Era</h2>
-            <h3>Industrialization</h3>
-            <p>The 19th and 20th centuries promoted crochet as both a practical craft and fashionably entertaining pastime. Mass publication of crochet patterns made the craft more accessible.
-            </p>
-
-            <h3>Contemporary Trends</h3>
-            <p>Contemporary crochet has evolved to include elements such as amigurumi-the art of crocheting small, stuffed yarn creatures, and the influence of online communities sharing techniques and patterns1.</p>
-        </div>
-
-        <h6 class = "orig">Cultural Significance of Crochet</h6>
-        <p class = "or-1">Crochet is a deep culture. One can see it practiced in most parts of the world. It has been passed from one generation to another because it is a good heritage contributor and provides economic support to many communities. It creates social connections as well as community identity through local gatherings and craft circles. It has also been used in politics and social movements as activism and means of artistic expression. It helps in preserving cultural skills and stories together with therapeutic benefits and personal empowerment. In essence, crochet connects cultural heritage, social impact, and innovation in the artistic imagination while reflecting the rich diversity of its global practitioners.</p>
     </div>
 
-    <footer>
-        <h1>Contact Us</h1>
-        <p>We’re here to help! Whether you have questions, feedback, or just want to chat about your latest project, don’t hesitate to reach out.</p>
-        <table>
-            <tr>
-                <th><img src="images/fb.png" alt="Facebook"></th>
-                <th><img src="images/ig.png" alt="Instagram"></th>
-                <th><img src="images/telegram.png" alt="Telegram"></th>
-            </tr>
-            <tr>
-                <td>Facebook</td>
-                <td>Instagram</td>
-                <td>Telegram</td>
-            </tr>
-        </table>
-        <p class = "copyright">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
-    </footer>
-    </body>
+    <div>
+        <div class="sec-label"><span class="dot"></span> Through the Centuries</div>
+        <div class="timeline">
+
+            <div class="tl-item">
+                <div class="tl-dot"><span></span></div>
+                <div class="tl-card">
+                    <span class="tl-era">&#9670; Early Origins</span>
+                    <h2>Ancient Methods &amp; Foundations</h2>
+                    <p>Crochet may be derived from early needlework involving shepherd's knitting, linen weaving, lace-making, and embroidery — traditions spanning multiple continents.</p>
+                    <div class="sub-grid">
+                        <div class="sub-card">
+                            <span class="sub-label">Ancient</span>
+                            <h3>Ancient Crochet Methods</h3>
+                            <p>Derived from early needlework involving shepherd's knitting, weaving of linen, lace-making, and embroidery.</p>
+                        </div>
+                        <div class="sub-card">
+                            <span class="sub-label">Technique</span>
+                            <h3>Tambour Embroidery</h3>
+                            <p>A small hook forming chain stitches over fabric — spreading from North Africa and Persia into Europe in the 1700s.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot"><span></span></div>
+                <div class="tl-card">
+                    <span class="tl-era">&#9711; 19th Century</span>
+                    <h2>Shepherd's Knitting &amp; European Spread</h2>
+                    <p>In the 19th century, crochet became especially popular in Europe, adopted as a mannerly hobby by higher-class women for lace collars, cuffs, doileys, and bedspreads.</p>
+                    <div class="sub-grid">
+                        <div class="sub-card">
+                            <span class="sub-label">Origin</span>
+                            <h3>Shepherd's Knitting</h3>
+                            <p>Coined early in the 19th century — referring to simple, practical items that sheep herders made in their spare time.</p>
+                        </div>
+                        <div class="sub-card">
+                            <span class="sub-label">Spread</span>
+                            <h3>European Influence</h3>
+                            <p>Popularized through emigrants from France, Italy, and Ireland in the early 19th century.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot"><span></span></div>
+                <div class="tl-card">
+                    <span class="tl-era">&#9654; Modern Era</span>
+                    <h2>Industrialization &amp; Contemporary Trends</h2>
+                    <p>Mass publication of crochet patterns made the craft more accessible, while online communities now share techniques and patterns globally.</p>
+                    <div class="sub-grid">
+                        <div class="sub-card">
+                            <span class="sub-label">Industry</span>
+                            <h3>Industrialization</h3>
+                            <p>The 19th and 20th centuries promoted crochet as both a practical craft and fashionable pastime through mass-published patterns.</p>
+                        </div>
+                        <div class="sub-card">
+                            <span class="sub-label">Today</span>
+                            <h3>Contemporary Trends</h3>
+                            <p>Modern crochet includes amigurumi — crocheted stuffed creatures — and thriving online communities sharing techniques worldwide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <div class="sec-label"><span class="dot"></span> Cultural Significance</div>
+        <div class="intro-card">
+            <p>Crochet is deeply cultural and practiced across the world — passed from generation to generation as a heritage contributor and source of economic support. It creates social connections and community identity through local gatherings and craft circles, and has been used in social movements as a means of activism and artistic expression. In essence, crochet connects cultural heritage, social impact, and innovation in artistic imagination, reflecting the rich diversity of its global practitioners.</p>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            <h2>Contact Us</h2>
+            <p>We're here to help! Whether you have questions, feedback, or just want to chat about your latest project, don't hesitate to reach out.</p>
+        </div>
+        <div class="footer-socials">
+            <a class="social-pill" href="#"><img src="images/Facebook.svg" alt="Facebook"> Facebook</a>
+            <a class="social-pill" href="#"><img src="images/Instagram.svg" alt="Instagram"> Instagram</a>
+            <a class="social-pill" href="#"><img src="images/Telegram.svg" alt="Telegram"> Telegram</a>
+        </div>
+    </div>
+    <p class="footer-copy">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
+</footer>
+
+</body>
 </html>

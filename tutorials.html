@@ -3,355 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy Yarn Academy</title>
-    <link rel="stylesheet" href="style.min.css">
-    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16" alt= "Cozy Yarn Academy"> <!-- Correctly added favicon -->
-</head>
-<!-- <style>
-* {
-    box-sizing: border-box;
-    color: #415865;
-    font-family: 'Outfit', sans-serif; /* Ensure font is applied */
-}
+    <title>Tutorials – Cozy Yarn Academy</title>
+    <link rel="icon" href="images/logo.png" type="image/png" sizes="16x16">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+        :root { --teal:#415865; --cream:#F9F8EB; --sky:#7A9EB1; --peach:#FFE1B6; }
 
-body {
-    background-color: #F9F8EB;
-}
+        body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--teal); overflow-x:hidden; }
 
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #415865;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    flex-wrap: wrap;
-}
+        nav { position:fixed; top:0; left:0; width:100%; z-index:1000; background:var(--teal); padding:12px 32px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 12px rgba(0,0,0,.15); }
+        .logo { width:52px; display:block; }
+        .nav-bar ul { display:flex; list-style:none; gap:4px; }
+        .nav-bar li a { color:var(--cream); text-decoration:none; font-weight:600; font-size:.88rem; padding:7px 16px; border-radius:40px; display:block; transition:background .2s,color .2s; }
+        .nav-bar li a:hover { background:var(--cream); color:var(--teal); }
+        .menu-toggle { display:none; color:var(--cream); font-size:24px; cursor:pointer; background:none; border:none; }
 
-.logo{
-    margin-left: 0 !important;
-    width: 6em;
-}
+        .hero { margin-top:76px; background:var(--teal); padding:64px 80px 56px; position:relative; overflow:hidden; }
+        .hero::after { content:'✦'; position:absolute; right:60px; top:50%; transform:translateY(-50%); font-size:220px; color:rgba(255,225,182,.06); line-height:1; pointer-events:none; }
+        .hero-tag { display:inline-block; background:rgba(249,248,235,.1); color:var(--peach); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:40px; border:1px solid rgba(249,248,235,.15); margin-bottom:18px; }
+        .hero h1 { font-size:clamp(2rem,4.5vw,3rem); font-weight:700; color:var(--cream); line-height:1.2; max-width:580px; }
+        .hero h1 span { color:var(--peach); }
+        .hero p { margin-top:14px; color:rgba(249,248,235,.65); font-size:.97rem; line-height:1.85; max-width:500px; }
 
-.nav-bar {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: flex-end; 
-}
+        .content { max-width:1100px; margin:0 auto; padding:56px 48px 72px; display:flex; flex-direction:column; gap:48px; }
 
-.nav-bar ul {
-    display: flex;
-    padding: 0;
-    margin-right: 0;
-    list-style: none;
-}
+        .sec-label { display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:var(--cream); font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:6px 16px; border-radius:40px; margin-bottom:16px; }
+        .sec-label .dot { width:6px; height:6px; background:var(--peach); border-radius:50%; flex-shrink:0; }
 
-.nav-bar li {
-    padding-right: 1em;
-    margin-right: 1em;
-    color: #F9F8EB; /* Normal color */
-    font-weight: bold;
-    font-size: 1em;
-}
+        .table-card { background:var(--teal); border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(65,88,101,.12); }
+        .table-card table { width:100%; border-collapse:collapse; }
+        .table-card thead tr { border-bottom:1px solid rgba(249,248,235,.1); }
+        .table-card thead th { padding:16px 24px; color:var(--peach); font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-align:left; }
+        .table-card tbody tr { border-bottom:1px solid rgba(249,248,235,.06); transition:background .15s; }
+        .table-card tbody tr:last-child { border-bottom:none; }
+        .table-card tbody tr:hover { background:rgba(249,248,235,.04); }
+        .table-card tbody td { padding:18px 24px; font-size:.9rem; line-height:1.6; vertical-align:middle; color:rgba(249,248,235,.75); }
+        .table-card tbody td:first-child { color:var(--cream); font-weight:600; width:220px; }
+        .badge { display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.8px; padding:4px 13px; border-radius:40px; }
+        .badge.beginner { background:rgba(122,158,177,.25); color:#b8dff0; }
+        .badge.intermediate { background:rgba(255,225,182,.15); color:var(--peach); }
+        .badge.advanced { background:rgba(249,248,235,.1); color:rgba(249,248,235,.75); }
 
-.nav-bar li a {
-    color: #F9F8EB; 
-    text-decoration: none; 
-}
+        .tutorial-card { background:var(--teal); border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(65,88,101,.12); }
+        .tutorial-card-header { padding:28px 32px 0; display:flex; flex-direction:column; gap:6px; }
+        .tutorial-tag { display:inline-flex; align-items:center; gap:7px; background:var(--sky); color:var(--cream); font-size:.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:40px; width:fit-content; }
+        .tutorial-card-header h2 { color:var(--cream); font-size:1.2rem; font-weight:700; margin-top:4px; }
+        .tutorial-card-header p { color:rgba(249,248,235,.55); font-size:.88rem; margin-bottom:20px; }
+        .tutorial-card video { width:100%; display:block; max-height:500px; background:#000; }
 
-.nav-bar li:hover {
-    background-color: #F9F8EB; 
-    padding: 0 1em;
-    color: #415865; 
-    border-radius: 40px;
-    transition: 300ms ease-in-out;
-}
+        /* FOOTER */
+        footer { background:var(--sky); border-radius:20px 20px 0 0; padding:48px 0 0; }
+        .footer-inner { max-width:1100px; margin:0 auto; padding:0 48px 40px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; }
+        .footer-left h2 { color:var(--cream); font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+        .footer-left p { color:rgba(249,248,235,.75); font-size:.88rem; line-height:1.8; max-width:360px; }
+        .footer-socials { display:flex; flex-direction:row; justify-content:center; gap:8px; flex-wrap:wrap; }
+        .social-pill { display:flex; align-items:center; gap:10px; background:rgba(249,248,235,.14); border:1px solid rgba(249,248,235,.2); color:var(--cream); font-weight:600; font-size:.85rem; padding:10px 20px; border-radius:40px; text-decoration:none; transition:background .2s; }
+        .social-pill:hover { background:rgba(249,248,235,.26); }
+        .social-pill img { width:20px; height:20px; object-fit:contain; }
+        .footer-copy { text-align:center; color:rgba(249,248,235,.45); font-size:.78rem; padding:20px 48px; border-top:1px solid rgba(249,248,235,.15); }
 
-.nav-bar li:hover a {
-    color: #415865; 
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100%;
-        background-color: #415865;
-        color: #F9F8EB;
-        padding: 10px 0;
-        display: none;
-        z-index: 1001;
-    }
-
-    nav.active .nav-bar {
-        display: flex;
-    }
-
-    .nav-bar ul {
-        flex-direction: column;
-        width: 100%;
-        margin: 0;
-    }
-
-    .nav-bar li {
-        padding: 10px 20px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        margin-right: 50px;
-        color: #F9F8EB;
-        font-size: 24px;
-    }
-}
-
-.t1 {
-    color: #415865;
-    background-color: #FFE1B6;
-}
-
-table {
-    padding: 0.2em 0.2em;
-    margin: 0 auto;
-    color: #415865;
-    border-collapse: collapse;
-}
-
-.t1 th {
-    background-color: #415865;    
-    color:#F9F8EB;
-}
-
-.t1 td {
-    color: #415865;
-    padding: 0.2em 0.2em;
-    background-color: #FFE1B6;
-    border: 1.5px solid black;
-}
-
-.t1, th, td {
-    border: 1.5px solid black;
-}
-
-.line-1 {
-    background-color: #415865;
-    padding: 0.75em 0.75em;
-    margin: 10em 5em 1em 5em;
-    border-radius: 20px;
-}
-
-.line-2 {
-    background-color: #415865;
-    padding: 0.75em 0.75em;
-    margin: 1em 5em 5em 5em;
-    border-radius: 20px;
-}
-
-.head-1 {
-    margin: 0.5em 5em;
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.gitna {
-    margin: 0.5em auto;
-    color: #F9F8EB;
-    background-color: #415865;
-    width: 10em;
-    text-align: center;
-    border-radius: 20px;
-    padding: 0.2em 0.2em;
-}
-
-.side {
-    background-color: #7A9EB1;
-    color: #F9F8EB;
-    width: 10em;
-    padding: 0.1em 0.1em;
-    border-radius: 20px;
-    text-align: center;
-    margin: 1em 5em;
-}
-
-.crochet {
-    background-color: #FFE1B6;
-    padding: 1em;
-    margin: 5em auto;
-    border-radius: 20px;
-    height: 20em;
-    width: 100%;
-    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.5);
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-img.crochet {
-    width: 500px;
-    max-width: 100%; 
-    height: auto; 
-    margin: 2em auto; 
-}
-
-
-footer {
-    background-color: #7A9EB1;
-    margin: 0 100px;
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    color: #F9F8EB; /* Change the font color */
-}
-
-footer h1 {
-    text-align: left;
-    font-size: 2em; 
-    color: #F9F8EB; 
-}
-
-footer p {
-    text-align: center;
-    color: #F9F8EB; 
-}
-
-footer th, td {
-    color: #F9F8EB;
-    border: 1px solid #7A9EB1;
-}
-
-.copyright {
-    text-align: center;
-    font-weight: bold;
-}
-
-</style> -->
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.createElement('div');
-    toggleButton.classList.add('menu-toggle');
-    toggleButton.innerHTML = '&#9776;';
-    document.querySelector('nav').insertBefore(toggleButton, document.querySelector('.nav-bar'));
-
-    toggleButton.addEventListener('click', () => {
-        document.querySelector('nav').classList.toggle('active');
-    });
-});
-</script>
+        @media(max-width:860px){
+            .hero { padding:48px 40px; }
+            .content { padding:40px 32px; }
+            .table-card { overflow-x:auto; }
+        }
+        @media(max-width:600px){
+            .nav-bar { display:none; }
+            nav.open .nav-bar { display:flex; flex-direction:column; position:fixed; top:0; left:0; width:68%; height:100%; background:var(--teal); padding:80px 20px 24px; z-index:1100; }
+            nav.open .nav-bar ul { flex-direction:column; }
+            .menu-toggle { display:block; }
+            .hero { padding:40px 24px; }
+            .hero::after { display:none; }
+            .content { padding:28px 20px; gap:32px; }
+            .table-card tbody td:first-child { width:auto; }
+            .tutorial-card-header { padding:22px 22px 0; }
+            .footer-inner { padding:0 20px 28px; }
+            .footer-copy { padding:20px; }
+        }
+    </style>
 </head>
 <body>
-<nav>
-<div>
-    <a href="index.html">
-        <img src="images/logo.png" alt="Cozy Yarn Academy Logo"  class="logo">
-    </a>
-</div>
 
-<div class="menu-toggle">
-    <span>&#9776;</span> <!-- Hamburger icon -->
-</div>
-
-<div class="nav-bar">
-    <ul>
-        <li><a href="index.html" alt="Home">Home</a></li>
-        <li><a href="about.html" alt="About Us">About Us</a></li>
-        <li><a href="history.html" alt="History">History</a></li>
-        <li><a href="tutorials.html" alt="Tutorials">Tutorials</a></li>
-        <li><a href="myproj.html" alt="My Projects">My Projects</a></li>
-        <li><a href="contact.html" alt="Contact Us">Contact Us</a></li>
-    </ul>
-</div>
+<nav id="mainNav">
+    <a href="index.html"><img src="images/logo.png" alt="Cozy Yarn Academy" class="logo"></a>
+    <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="myproj.html">My Projects</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
 </nav>
 
+<section class="hero">
+    <div class="hero-tag">Cozy Yarn Academy</div>
+    <h1>Tutorials &amp; <span>Course Guide</span></h1>
+    <p>Learn at your own pace with our video tutorials and browse available classes for every skill level.</p>
+</section>
 
-<div class="line-1"></div>
-<!-- line design -->
+<main class="content">
 
-<div class = "head-1">
-    <header>Course Guide</header>
-</div>
+    <div>
+        <div class="sec-label"><span class="dot"></span> Course Guide</div>
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Description</th>
+                        <th>Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Knitting</td>
+                        <td>Learn the fundamentals of knitting, including casting on, knit and purl stitches, and binding off.</td>
+                        <td><span class="badge beginner">Beginner</span></td>
+                    </tr>
+                    <tr>
+                        <td>Advanced Crochet</td>
+                        <td>Explore advanced crochet techniques such as lacework, shaping, and texturing.</td>
+                        <td><span class="badge advanced">Advanced</span></td>
+                    </tr>
+                    <tr>
+                        <td>Yarn Dyeing Techniques</td>
+                        <td>Discover various methods for dyeing yarn to achieve vibrant and unique colors.</td>
+                        <td><span class="badge intermediate">Intermediate</span></td>
+                    </tr>
+                    <tr>
+                        <td>Amigurumi Workshop</td>
+                        <td>Create adorable amigurumi figures using basic crochet techniques and patterns.</td>
+                        <td><span class="badge intermediate">Intermediate</span></td>
+                    </tr>
+                    <tr>
+                        <td>Summer Shawl Design</td>
+                        <td>Design and knit a stylish summer shawl, focusing on stitch patterns and shaping.</td>
+                        <td><span class="badge advanced">Advanced</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<div class = "table-1">
-    <table class = "t1">
-    <tr>
-        <th class = "head">Class Name</th>
-        <th class = "head">Description</th>
-        <th class = "head">Level</th>
-    </tr>
-    <tr>
-        <td class = "head" id="peach">Knitting</td>
-        <td class = "desc"  id="peach">Learn the fundamentals of knitting, including casting on, knit and purl stitches, and binding off.</td>
-        <td class = "head" id="peach">Beginner</td>
-    </tr>
-    <tr>
-        <td class = "head" id="peach">Advanced Crochet</td>
-        <td class = "desc" id="peach">Explore advanced crochet techniques such as lacework, shaping, and texturing.</td>
-        <td class = "head"  id="peach">Advanced</td>
-    </tr>
-    <tr>
-        <td class = "head" id="peach">Yarn Dyeing Techniques</td>
-        <td class = "desc" id="peach">Discover various methods for dyeing yarn to achieve vibrant and unique colors.</td>
-        <td class = "head" id="peach">Intermediate</td>
-    </tr>
-    <tr>
-        <td class = "head" id="peach">Amigurumi Workshop</td>
-        <td class = "desc" id="peach">Create adorable amigurumi figures using basic crochet techniques and patterns.</td>
-        <td class = "head" id="peach">Intermediate</td>
-    </tr>
-    <tr>
-        <td class = "head" id="peach">Summer Shawl Design</td>
-        <td class = "desc" id="peach">Design and knit a stylish summer shawl, focusing on stitch patterns and shaping.</td>
-        <td class = "head" id="peach">Advanced</td>
-    </tr>
-    </table>
-</div>
+    <div>
+        <div class="sec-label"><span class="dot"></span> Tutorials</div>
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <span class="tutorial-tag">Knitting Basics</span>
+                <h2>Let's create a pouch!!</h2>
+                <p>Follow along with the video below to make your very own knitted pouch from scratch.</p>
+            </div>
+            <video controls poster="images/2.png">
+                <source src="media/tutorial.mp4" type="video/mp4">
+                <source src="media/tutorial.webm" type="video/webm">
+                <track src="media/captions.vtt" kind="captions" srclang="en-us" label="English">
+                <track src="media/descriptions.vtt" kind="descriptions" srclang="en-us" label="English Descriptions">
+            </video>
+        </div>
+    </div>
 
-<div class="line-2"></div> 
-<!-- line design -->
-
-<h1 class = "gitna">TUTORIALS</h1>
-
-<h2 class = "side">Knitting Basics</h2>
-
-<h3 class = "gitna">Let’s create a pouch!!</h3>
-
-<main>
-    <video controls poster="images/2.png" alt="pouch" class = "crochet" >
-        <source src = "media/tutorial.mp4" type = "video/mp4">
-        <source src = "media/tutorial.webm" type = "video/mp4">
-        <track src = "media/captions.vtt" kind = "captions" srclang = "en-us" label = "English">
-        <track src = "media/descriptions.vtt" kind = "descriptions" srclang = "en-us" label = "English Descriptions">
-    </video>
 </main>
 
 <footer>
-<h1>Contact Us</h1>
-<p>We’re here to help! Whether you have questions, feedback, or just want to chat about your latest project, don’t hesitate to reach out.</p>
-<table>
-    <tr>
-        <th><img src="images/fb.png" alt="Facebook"></th>
-        <th><img src="images/ig.png" alt="Instagram"></th>
-        <th><img src="images/telegram.png" alt="Telegram"></th>
-    </tr>
-    <tr>
-        <td>Facebook</td>
-        <td>Instagram</td>
-        <td>Telegram</td>
-    </tr>
-</table>
-<p class = "copyright">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
+    <div class="footer-inner">
+        <div class="footer-left">
+            <h2>Contact Us</h2>
+            <p>We're here to help! Whether you have questions, feedback, or just want to chat about your latest project, don't hesitate to reach out.</p>
+        </div>
+        <div class="footer-socials">
+            <a class="social-pill" href="#"><img src="images/Facebook.svg" alt="Facebook"> Facebook</a>
+            <a class="social-pill" href="#"><img src="images/Instagram.svg" alt="Instagram"> Instagram</a>
+            <a class="social-pill" href="#"><img src="images/Telegram.svg" alt="Telegram"> Telegram</a>
+        </div>
+    </div>
+    <p class="footer-copy">&copy; 2024 Cozy Yarn Academy. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
